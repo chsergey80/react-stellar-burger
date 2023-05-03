@@ -5,3 +5,10 @@
   background-color: #131316;
   color: #f2f2f3;
 }
+
+.main {
+  display: grid;
+  grid-template-columns: repeat(2, 600px);
+  justify-content: center;
+  gap: 40px;
+}
