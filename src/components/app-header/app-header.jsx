@@ -1,38 +1,48 @@
-import headerStyles from './app-header.module.css';
-import {BurgerIcon,
-        Logo,
-        ProfileIcon,
-        ListIcon} from '@ya.praktikum/react-developer-burger-ui-components';
+import {
+  Logo,
+  BurgerIcon,
+  ProfileIcon,
+  ListIcon,
+} from "@ya.praktikum/react-developer-burger-ui-components";
+import headerStyles from "./app-header.module.css";
 
-function AppHeader(props) {
+function AppHeader() {
   return (
-    <nav className={headerStyles.header}>
-      <ul className={headerStyles.header_items}>
-        <li className={headerStyles.header_item}>
-          <div>
-          <BurgerIcon type="primary"/>
-          </div>
-          <p className={headerStyles.text_item}>Конструктор</p>
-        </li>
-        <li className={headerStyles.header_item}>
-          <div>
-          <ListIcon type="secondary"/>
-          </div>
-          <p className={headerStyles.text_item}>Лента заказов</p>
-        </li>
-        <li className={headerStyles.logo_item}>
-          <div className={headerStyles.logo}>
-            <Logo />
-          </div>
-        </li>
-        <li className={headerStyles.header_item}>
-          <div>
-            <ProfileIcon type="secondary" />
-          </div>
-          <p className={headerStyles.text_item}>Личный кабинет</p>
-        </li>
-      </ul>
-    </nav>
+    <header className={headerStyles.header}>
+      <div className={headerStyles.logo}>
+        <Logo />
+      </div>
+      <nav className="pb-4 pt-4">
+        <ul className={`${headerStyles.items} pb-4 pt-4`}>
+
+          <li className={`${headerStyles.item} pl-5 pr-5`}>
+            <a href="#burger-constructor" className={headerStyles.link}>
+              <BurgerIcon type="primary" />
+              <p className="text text_type_main-default  pl-2">Конструктор</p>
+            </a>
+          </li>
+
+          <li className={`${headerStyles.item} pl-5`}>
+            <a href="#order-feed" className={headerStyles.link}>
+              <ListIcon type="secondary" />
+              <p className="text text_type_main-default text_color_inactive pl-2">
+                Лента заказов
+              </p>
+            </a>
+          </li>
+
+          <li className={`${headerStyles.item} pl-5`}>
+            <a href="#private-office" className={headerStyles.link}>
+              <ProfileIcon type="secondary" />
+              <p className="text text_type_main-default text_color_inactive pl-2 pr-5">
+                Личный кабинет
+              </p>
+            </a>
+          </li>
+          
+        </ul>
+      </nav>
+    </header>
   );
 }
 
