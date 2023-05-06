@@ -8,7 +8,7 @@ function BurgerConstructor({ingredients}) {
   const ingredient = ingredients.filter(item => item.type !== 'bun');
 
   return (
-  <div className={` ${styles.section} pt-5 pl-4 pr-4`}>
+  <div className={` ${styles.main} pt-5 pl-4 pr-4`}>
     <div className={` ${styles.bread} pb-5 pr-5`}>
       <ConstructorElement
         type="top"
@@ -48,4 +48,4 @@ function BurgerConstructor({ingredients}) {
 
 BurgerConstructor.propTypes = {ingredients: PropTypes.arrayOf(ingredientPropType).isRequired};
 
-export default BurgerConstructor
+export default BurgerConstructor;

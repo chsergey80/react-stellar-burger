@@ -9,3 +9,5 @@
 * 5 commit / Корректирующий коммит (исправление ошибок)
 * 6 commit / Отредактирован файл prop-types.jsx
 * 7 commit / Сверстан блок: burger-constructor
+* 8 commit / Сверстан блок: burger-ingredients и ingredient-items. Проведена итоговая проверка.
+
