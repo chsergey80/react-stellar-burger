@@ -10,4 +10,5 @@
 * 6 commit / Отредактирован файл prop-types.jsx
 * 7 commit / Сверстан блок: burger-constructor
 * 8 commit / Сверстан блок: burger-ingredients и ingredient-items. Проведена итоговая проверка.
+* 9 commit / Исправлены замечания по первому ревью в ветке month-7/step-1
 

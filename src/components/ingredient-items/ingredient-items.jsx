@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import styles from "./ingredient-items.module.css"
 import { ingredientPropType } from "../../utils/prop-types";
 
-function IngredientItems({ingredients}) {
+const IngredientItems = ({ingredients}) => {
   return (
     <li className={styles.main}>
       <Counter count={1} size="default" className={styles.counter} extraClass="m-1" />
@@ -17,6 +17,6 @@ function IngredientItems({ingredients}) {
   )
 }
 
-IngredientItems.propTypes = {ingredients: PropTypes.arrayOf(ingredientPropType).isRequired};
+IngredientItems.propTypes = {ingredients: ingredientPropType.isRequired};
 
 export default IngredientItems;

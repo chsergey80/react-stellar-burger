@@ -6,11 +6,11 @@ import styles from "./burger-ingredients.module.css"
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
 function BurgerIngredients({ingredients}) {
-  const [current, setCurrent] = useState("buns");
+  const [current, setCurrent] = useState("bun");
   const burgerBuns = ingredients.filter((ingredient) => ingredient.type === 'bun');
   const burgerSauces = ingredients.filter((ingredient) => ingredient.type === 'sauce');
   const burgerMainIngredients = ingredients.filter((ingredient) => ingredient.type === 'main');
-  const getIngredients = (data) => (data.map(item => (<IngredientItems ingredients={item}/>)));
+  const getIngredients = (data) => (data.map(item => (<IngredientItems key={item._id} ingredients={item} />)));
 
   return (
     <div className={styles.main}>
@@ -36,6 +36,6 @@ function BurgerIngredients({ingredients}) {
       </div>
     </div>)}
 
-BurgerIngredients.propTypes = {ingredients: PropTypes.arrayOf(ingredientPropType).isRequired};
+BurgerIngredients.propTypes = {ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired};
 
 export default BurgerIngredients;

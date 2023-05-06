@@ -20,7 +20,7 @@ function BurgerConstructor({ingredients}) {
     <div className={`custom-scroll ${styles.scrollbox}`}>
       <ul className={styles.list}>
         {ingredient.map((item) => (
-          <li className={styles.items}>
+          <li className={styles.items} key={item._id}>
             <DragIcon type="primary" />
             <ConstructorElement
               text={item.name}
@@ -46,6 +46,6 @@ function BurgerConstructor({ingredients}) {
     </div>
   </div>)}
 
-BurgerConstructor.propTypes = {ingredients: PropTypes.arrayOf(ingredientPropType).isRequired};
+BurgerConstructor.propTypes = {ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired};
 
 export default BurgerConstructor;
