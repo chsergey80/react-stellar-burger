@@ -6,3 +6,5 @@
 * 2 commit / Создана директория app-header с двумя файлами: app-headre.jsx и app-header.module.css. Сделана верстка AppHeader
 * 3 commit / Внесены корректировки в верстку AppHeader. Шрифты и отступы взяты изи бибилиотеки
 * 4 commit / Сверстаны заготовки блоков: BurgerIngradients и BurgerConstructor
+* 5 commit / Корректирующий коммит (исправление ошибок)
+
