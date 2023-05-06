@@ -7,4 +7,4 @@
 * 3 commit / Внесены корректировки в верстку AppHeader. Шрифты и отступы взяты изи бибилиотеки
 * 4 commit / Сверстаны заготовки блоков: BurgerIngradients и BurgerConstructor
 * 5 commit / Корректирующий коммит (исправление ошибок)
-
+* 6 commit / Отредактирован файл prop-types.jsx
