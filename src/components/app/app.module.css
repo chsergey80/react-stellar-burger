@@ -4,4 +4,15 @@
   height: 100vh;
   background-color: #131316;
   color: #f2f2f3;
+  margin: 0 auto 40px;
+  max-width: 2000px;
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;  
+  gap: 40px;
+  margin: 0 40px;
+  max-width: 96%;
 }

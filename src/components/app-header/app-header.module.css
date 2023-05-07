@@ -1,0 +1,52 @@
+.header {
+  display: flex;
+  background-color: #1C1C21;
+  box-sizing: border-box;
+  justify-content: center;
+  max-width: 96%;
+  min-height: 88px;
+  margin: 40px 40px 0;
+}
+
+.logo {
+  align-self: center;
+  display: flex;
+  position: absolute;
+}
+
+.menu {
+  align-self: center;
+  min-width: 66.67%;
+}
+
+.list {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.link {
+  display: flex;
+  color: inherit;
+  cursor: pointer;
+  flex-direction: row;
+  text-decoration: none;
+  gap: 8px;
+  transition: .2s ease-in-out;
+}
+
+.link:hover {
+  opacity: .7;
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.item:last-child {
+  margin-left: auto;
+}
