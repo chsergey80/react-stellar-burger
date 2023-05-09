@@ -13,25 +13,25 @@ function App() {
     const getBurgrInfo = async () => {
       try{
         const res = await fetch(urlInfoData);
-        if (res.status === 200) {
-          const burgerInfo = await res.json();
-          setStateInfo(burgerInfo.data);
-        } else {throw new Error('Error fetching users list')}
-      } catch (error) {setIsError(true)}
+        const burgerInfo = await res.json();
+        setStateInfo(burgerInfo.data);
+        }
+      catch (error) {
+        setIsError(true)
+        console.log('Ошибка загрузки данных', error)
+      }
     }
     getBurgrInfo();
   }, []);
 
   return (
     <div className={styles.app}>
-      {isError ? <h3> Error! Please try again later</h3> :
-      <>
-        <AppHeader />
+      <AppHeader />
+      {isError ? <h2 className={styles.error}>Ошибка загрузки данных с сервера</h2> :
         <main className={styles.main}>
         { stateInfo.length && <BurgerIngredients ingredients={stateInfo} />}
         { stateInfo.length && <BurgerConstructor ingredients={stateInfo} />}
         </main>
-        </>
         }
     </div>
   );
