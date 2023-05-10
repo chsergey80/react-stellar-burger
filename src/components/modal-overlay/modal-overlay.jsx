@@ -1,10 +1,12 @@
-import overlayStyles from "./modal-overlay.module.css"
-//import PropTypes from "prop-types"
+import styles from "./modal-overlay.module.css"
+import PropTypes from "prop-types"
 
-function ModalOverlay({ onClose }) {   // создаем фоновую подложку под модальным окном, пока без проверки на PropTypes
+function ModalOverlay({ onClose }) { 
   return (
-    <div onClick={onClose} className={overlayStyles.main}></div>
+    <div onClick={onClose} className={styles.main}></div>
   )
 }
+
+ModalOverlay.propTypes = {onClose: PropTypes.func.isRequired}
 
 export default ModalOverlay

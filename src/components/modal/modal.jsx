@@ -1,30 +1,28 @@
-//import PropTypes from "prop-types";
-import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
 import ModalOverlay from "../modal-overlay/modal-overlay";
+import styles from "./modal.module.css";
+import React from "react";
 import ReactDOM from "react-dom";
-import modalStyles from "./modal.module.css";
-import { useEffect } from "react";
 
-const modalRoot = document.querySelector('#react-modals');   // нужно внести эту запись в файл public/index.html, 32 строчка
+const modalRoot = document.getElementById("react-modals");
 
-function Modal({ children, onClose }) {  // в качестве children будет модуль ingredient-details
-  useEffect(() => {   // работаем со слушателями закрытия модального окна
-    function closeOnEsc(evt) {if (evt.key === 'Escape') {onClose()}}
-    document.addEventListener('keydown', closeOnEsc);
-    return () => {document.removeEventListener('keydown', closeOnEsc)}
-  })
-  return ReactDOM.createPortal(     // Создаем портал, позволяющий отрендерить дочерние элементы в узле DOM(модальном окне), существующий вне иерархии DOM-компонента
-      <>
-        <ModalOverlay onClose={onClose} />
-        <div className={modalStyles.main}>
-          <button onClick={onClose} className={modalStyles.close_button}>
-            <CloseIcon />
-          </button>
+function Modal({ children, onClose }) {
+  React.useEffect(() => {
+    document.addEventListener("keydown", (evt) => {if (evt.key === "Escape") {onClose()}})
+      return () => {document.removeEventListener("keydown", (evt) => {if (evt.key === "Escape") {onClose()}})}
+  }, [])
+
+  return ReactDOM.createPortal(
+      (<>
+        <ModalOverlay onClose={onClose}/>
+        <div className={styles.main} onClick={onClose}>
           {children}
         </div>
-      </>,
+      </>),
       modalRoot
   );
-};
+}
 
-export default Modal
+Modal.propTypes = {children: PropTypes.object.isRequired, onClose: PropTypes.func.isRequired};
+
+export default Modal;

@@ -8,26 +8,16 @@ import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 
 function BurgerIngredients({ingredients}) {
-  const [isOpen, setOpen] = useState(false);   //Возвращает значение с состоянием и функцию для его обновления открытия модального окна
-  const [currentIngredient, setCurrentIngredient] = useState(null);   //Возвращает значение с состоянием и функцию для его обновления компонентов модального окна
-
-  const handleModalOpen = (item) => {    // переключатель состояния модального окна и передачи выбранного ингредиента в состоянии: выбран элемент
-    setOpen(true);
-    setCurrentIngredient(item);
-  };
-
-  const handleModalClose = () => {    // переключатель состояния модального окна и передачи выбранного ингредиента при выключении
-    setOpen(false);
-    setCurrentIngredient(null);
-  };
-
+  const [currentIngredient, setCurrentIngredient] = useState(null);
+  const onOpen = (item) => {setCurrentIngredient(item)};
+  const onClose = () => {setCurrentIngredient(null)};
   const [current, setCurrent] = useState("burgerBuns");
   const burgerBuns = ingredients.filter((ingredient) => ingredient.type === 'bun');
   const burgerSauces = ingredients.filter((ingredient) => ingredient.type === 'sauce');
   const burgerMains = ingredients.filter((ingredient) => ingredient.type === 'main');
-  const getIngredients = (data) => (data.map(item => (<IngredientItems key={item._id} ingredients={item}  onClick={(item) => handleModalOpen(item)}/>)));
+  const getIngredients = (data) => (data.map(item => (<IngredientItems key={item._id} ingredients={item} current={onOpen} onClose={onClose}/>)));
 
-  const tabScroll = (selectTab) => {  //Добавляем скролл по-клику на табы с плавным пролистываением 
+  const tabScroll = (selectTab) => {
     setCurrent(selectTab);
     const item = document.getElementById(selectTab);
     if (item) {return item.scrollIntoView({ behavior: "smooth" })}};
@@ -52,7 +42,9 @@ function BurgerIngredients({ingredients}) {
         </ul>
       </div>
       {/* вызвываем модальное окно */}
-      {isOpen && (<Modal  children={<IngredientDetails currentIngredient={currentIngredient}/>} onClose={handleModalClose}>  </Modal>)} 
+      {currentIngredient && (<Modal onClose={onClose} title="Детали ингредиента">
+        <IngredientDetails info={currentIngredient} onClose={onClose}/>
+      </Modal>)} 
     </div>)}
 
 BurgerIngredients.propTypes = {ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired};

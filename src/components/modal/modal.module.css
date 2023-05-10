@@ -22,9 +22,9 @@
   position: absolute;
   right: 40px;
   top: 60px;
-  transition: .2s ease-in-out; /*плавный переход, взял из документации по css*/
+  transition: .2s ease-in-out;
 }
 
 .close_button:hover {
-  opacity: .6;  /*взял сам приблизительно*/
+  opacity: .6;
 }
