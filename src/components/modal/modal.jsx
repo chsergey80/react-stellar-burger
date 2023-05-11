@@ -8,9 +8,10 @@ const modalRoot = document.getElementById("react-modals");
 
 function Modal({ children, onClose }) {
   React.useEffect(() => {
-    document.addEventListener("keydown", (evt) => {if (evt.key === "Escape") {onClose()}})
-      return () => {document.removeEventListener("keydown", (evt) => {if (evt.key === "Escape") {onClose()}})}
-  }, [])
+    const closeByEsc = (evt) => {if (evt.key === "Escape") {onClose()}};
+    document.addEventListener("keydown", closeByEsc);
+      return () => {document.removeEventListener("keydown", closeByEsc)}
+  }, [onClose])
 
   return ReactDOM.createPortal(
       (<>

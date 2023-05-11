@@ -16,6 +16,12 @@
 ## Step - 2 Финальный проект. Написать весь JSX и сверстать
 * 11 commit / Внесены правки в проверку ошибок при работе с API запросами. Создано модальное окно Modal и фоновая подложка
               под модальным окном ModalOverlay с прописанной логикой работы. 
-* 12 commit   Создан модуль наполнения окна Modal содержимым - ingredient-details.
+* 12 commit / Создан модуль наполнения окна Modal содержимым - ingredient-details.
               Созданы модули ingredient-details и order-details содержащие информацию всплывающих окон. Добавлена папка images с содержанием.
               Внесены изменения в файлы burger-constructor, burger-ingredients и ingredient-items для вызова модальных окон. 
+* 13 commit / Исправлены замечания 1 ревью 2 этапа сдачи проекта:
+              - Вынесено в отдельную функцию и отдельный файл utils/burger-api.js API запрос.
+              - Добавлена проверка ответа сервера - res.ok.
+              - В файле ingredient-details.jsx внесены исправления касающиеся типизации пропса info.
+              - Код в модуле app.jsx касающийся вызова модулей BurgerConstructor и BurgerIngredients оптимизирован.
+              - В модуле modal.jsx исправлен код, в addEventListener и в removeEventListener передана именованная функция.
