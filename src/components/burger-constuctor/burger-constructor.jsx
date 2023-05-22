@@ -2,12 +2,19 @@ import styles from "./burger-constructor.module.css"
 import { DragIcon, CurrencyIcon, ConstructorElement, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import { ingredientPropType } from "../../utils/prop-types";
+import React from "react";
+import Modal from "../modal/modal";
+import PopupOrder from '../order-details/order-details';
 
 function BurgerConstructor({ingredients}) {
+  const [popupOrder, setPopupOrder] = React.useState(false);
+  const onOpen = () => {setPopupOrder(true)};
+  const onClose = () => {setPopupOrder(false)};
   const burgerBread = ingredients.find(item => item.type === 'bun');
   const ingredient = ingredients.filter(item => item.type !== 'bun');
 
   return (
+  <>
   <div className={` ${styles.main} pt-5 pl-4 pr-4`}>
     <div className={` ${styles.bread} pb-5 pr-5`}>
       <ConstructorElement
@@ -42,9 +49,15 @@ function BurgerConstructor({ingredients}) {
         <p className="text text_type_digits-medium pr-2">610</p>
         <CurrencyIcon type="primary" />
       </div>
-      <Button htmlType="button" type="primary" size="large">Оформить заказ</Button>
+      <Button onClick={onOpen} htmlType="button" type="primary" size="large">Оформить заказ</Button>
     </div>
-  </div>)}
+  </div>
+  {popupOrder && <Modal onClose={onClose}>
+          <PopupOrder onClose={onClose}>
+          </PopupOrder>
+  </Modal>}
+  </>
+  )}
 
 BurgerConstructor.propTypes = {ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired};
 

@@ -16,3 +16,8 @@
   margin: 0 40px;
   max-width: 96%;
 }
+
+.error {
+  text-align: center;
+  color: red;
+}
