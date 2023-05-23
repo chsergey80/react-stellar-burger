@@ -27,4 +27,8 @@
               - В модуле modal.jsx исправлен код, в addEventListener и в removeEventListener передана именованная функция.
 ## Step - 1 (Sprint 8) Проект. Перенос состояния в Context
 * 14 commit / Создаем папку services, а в ней файлы itemContext.js для сохранения данных контекста.
-              
+* 15 commit / Вносим изменения в файлы burger-constructor.jsx и burger-ingredients.jsx:
+              - Подписываем компоненты burger-constructor и burger-ingredients на itemContext.
+              Вносим изменения в файл app.jsx:
+              - Подписываем компонент app на itemContext.
+              - Оборачиваем компоненты burger-constructor и BurgerIngredients в провайдер контекста (Provider) и присваиваем параметру value значение состояния (stateInfo).

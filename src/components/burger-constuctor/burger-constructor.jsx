@@ -5,8 +5,10 @@ import { ingredientPropType } from "../../utils/prop-types";
 import React from "react";
 import Modal from "../modal/modal";
 import PopupOrder from '../order-details/order-details';
+import { IngredientsContext } from "../../services/itemContext";
 
-function BurgerConstructor({ingredients}) {
+function BurgerConstructor() {
+  const ingredients = React.useContext(IngredientsContext);
   const [popupOrder, setPopupOrder] = React.useState(false);
   const onOpen = () => {setPopupOrder(true)};
   const onClose = () => {setPopupOrder(false)};
