@@ -2,8 +2,11 @@ import styles from "./order-details.module.css"
 import checkIcon from "../../images/graphics.svg"
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
+import React from "react";
+import { OrderContext } from "../../services/itemContext";
 
 const OrderDetails = ({onClose}) =>{
+  const order = React.useContext(OrderContext);
 
   return (
     <div>
@@ -12,7 +15,7 @@ const OrderDetails = ({onClose}) =>{
         <CloseIcon type="primary" onClick={onClose}/>
         </div>
         <li className={styles.about}>
-        <p className={`${styles.digits} text text_type_digits-large`}>034536</p>
+        <p className={`${styles.digits} text text_type_digits-large`}>{order}</p>
         </li>
         <li className={styles.order}>
         <p className="text text_type_main-medium">идентификатор заказа</p>

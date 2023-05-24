@@ -32,3 +32,7 @@
               Вносим изменения в файл app.jsx:
               - Подписываем компонент app на itemContext.
               - Оборачиваем компоненты burger-constructor и BurgerIngredients в провайдер контекста (Provider) и присваиваем параметру value значение состояния (stateInfo).
+* 16 commit / - В фале burger-api.js добавлена функция postOrder для отправки заказа на сервер, изменен config (добавлен эндпоинт для отправки заказа на сервер с указанием header).
+              - В фале order-details.jsx добавлен номер заказа, полученный с сервера и удален хардкод. Компонент подписан на OrderContext.
+              - В фале ingredient-items.jsx (компонент Counter) убран хардкод количества ингредиентов, которые есть в наличии.
+              - В фале burger-constructor.jsx добавлен расчет стоимости бургера через функцию totalPrice с использованием хуков useMemo, useState. Компонент подписан на OrderContext и импортирована функция postOrder. Добавлена функция fetchPostOrderIngredients

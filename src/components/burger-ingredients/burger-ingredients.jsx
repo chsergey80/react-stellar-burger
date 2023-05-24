@@ -43,7 +43,6 @@ function BurgerIngredients() {
         <ul className={`${styles.ingredients_list} pt-5 pb-5`}> {getIngredients(burgerMains)}
         </ul>
       </div>
-      {/* вызвываем модальное окно */}
       {currentIngredient && (<Modal onClose={onClose} title="Детали ингредиента">
         <IngredientDetails info={currentIngredient} onClose={onClose}/>
       </Modal>)} 

@@ -5,15 +5,27 @@ import { ingredientPropType } from "../../utils/prop-types";
 import React from "react";
 import Modal from "../modal/modal";
 import PopupOrder from '../order-details/order-details';
-import { IngredientsContext } from "../../services/itemContext";
+import { IngredientsContext, OrderContext } from "../../services/itemContext";
+import { postOrder } from "../../utils/burger-api";
 
 function BurgerConstructor() {
   const ingredients = React.useContext(IngredientsContext);
   const [popupOrder, setPopupOrder] = React.useState(false);
-  const onOpen = () => {setPopupOrder(true)};
+  const onOpen = () => {setPopupOrder(true); fetchPostOrderIngredients()};
   const onClose = () => {setPopupOrder(false)};
   const burgerBread = ingredients.find(item => item.type === 'bun');
   const ingredient = ingredients.filter(item => item.type !== 'bun');
+  const totalPrice = React.useMemo(() => {
+    const priceIngredients = ingredient.reduce((sum, item) => { return sum + item.price}, 0);
+    return priceIngredients + burgerBread.price * 2;
+  }, [burgerBread, ingredient]);
+  const [order, setOrder] = React.useState("");
+  const orderIngridients = React.useMemo(() => ingredients.map((i) => i._id), [ingredients]);
+  function fetchPostOrderIngredients() {
+    postOrder(orderIngridients)
+      .then((response) => {setOrder(response.order.number.toString())})
+      .catch((err) => {console.log(err)})
+  }
 
   return (
   <>
@@ -47,17 +59,21 @@ function BurgerConstructor() {
         thumbnail={burgerBread.image}/>
     </div>
     <div className={`pt-5 pr-8 ${styles.order}`}>
+
       <div className={styles.totalPrice}>
-        <p className="text text_type_digits-medium pr-2">610</p>
+        <p className="text text_type_digits-medium pr-2">{totalPrice}</p>
         <CurrencyIcon type="primary" />
       </div>
       <Button onClick={onOpen} htmlType="button" type="primary" size="large">Оформить заказ</Button>
+
     </div>
   </div>
-  {popupOrder && <Modal onClose={onClose}>
-          <PopupOrder onClose={onClose}>
-          </PopupOrder>
-  </Modal>}
+  <OrderContext.Provider value={order}>
+    {popupOrder && <Modal onClose={onClose}>
+      <PopupOrder onClose={onClose}>
+      </PopupOrder>
+    </Modal>}
+  </OrderContext.Provider>
   </>
   )}
 
