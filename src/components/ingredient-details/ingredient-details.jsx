@@ -1,15 +1,12 @@
-import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './ingredient-details.module.css'
 import PropTypes from "prop-types";
 import { ingredientPropType } from "../../utils/prop-types";
 
-const IngredientDetails = ({info, onClose}) =>{
+const IngredientDetails = ({info}) =>{
   
   return (
     <div className={styles.main} onClick={e => e.stopPropagation()}>
-      <h2 className={`${styles.title} text text_type_main-large`}>Детали ингредиента
-        <CloseIcon type="primary" onClick={onClose}/>
-      </h2>
+      <h2 className={`${styles.title} text text_type_main-large`}>Детали ингредиента</h2>
       <img src={info.image_large} alt="Изображение ингредиента"></img>
       <span className={`${styles.subtitle} text text_type_main-medium`}>{info.name}</span>
       <ul className={styles.food}>

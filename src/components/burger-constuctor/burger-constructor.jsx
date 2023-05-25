@@ -1,18 +1,16 @@
 import styles from "./burger-constructor.module.css"
 import { DragIcon, CurrencyIcon, ConstructorElement, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
-import { ingredientPropType } from "../../utils/prop-types";
 import React from "react";
 import Modal from "../modal/modal";
-import PopupOrder from '../order-details/order-details';
-import { IngredientsContext, OrderContext } from "../../services/itemContext";
+import OrderDetails from '../order-details/order-details';
+import { IngredientsContext } from "../../services/itemContext";
 import { postOrder } from "../../utils/burger-api";
 
 function BurgerConstructor() {
   const ingredients = React.useContext(IngredientsContext);
-  const [popupOrder, setPopupOrder] = React.useState(false);
-  const onOpen = () => {setPopupOrder(true); fetchPostOrderIngredients()};
-  const onClose = () => {setPopupOrder(false)};
+  const [OrderDetail, setOrderDetail] = React.useState(false);
+  const onOpen = () => {setOrderDetail(true); fetchPostOrderIngredients()};
+  const onClose = () => {setOrderDetail(false)};
   const burgerBread = ingredients.find(item => item.type === 'bun');
   const ingredient = ingredients.filter(item => item.type !== 'bun');
   const totalPrice = React.useMemo(() => {
@@ -24,8 +22,8 @@ function BurgerConstructor() {
   const orderIngridients = React.useMemo(() => ingredients.map((i) => i._id), [ingredients]);
   function fetchPostOrderIngredients() {
     postOrder(orderIngridients)
-      .then((response) => {setOrder(response.order.number.toString())})
-      .catch((err) => {console.log(err)})
+    .then((response) => {setOrder(response.order.number.toString())})
+      .catch(console.error)
   }
 
   return (
@@ -69,15 +67,14 @@ function BurgerConstructor() {
 
     </div>
   </div>
-  <OrderContext.Provider value={order}>
-    {popupOrder && <Modal onClose={onClose}>
-      <PopupOrder onClose={onClose}>
-      </PopupOrder>
+
+    {OrderDetail && <Modal onClose={onClose}>
+      <OrderDetails onClose={onClose} order={order}>
+      </OrderDetails>
     </Modal>}
-  </OrderContext.Provider>
+
   </>
   )}
 
-BurgerConstructor.propTypes = {ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired}
 
 export default BurgerConstructor;

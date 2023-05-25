@@ -1,20 +1,10 @@
 import styles from "./order-details.module.css"
 import checkIcon from "../../images/graphics.svg"
-import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
-import { ingredientPropType } from "../../utils/prop-types";
-import React from "react";
-import { OrderContext } from "../../services/itemContext";
 
-const OrderDetails = ({onClose}) =>{
-  const order = React.useContext(OrderContext);
-
+function OrderDetails({order}) {
   return (
-    <div>
-      <ul className={styles.main}  onClick={e => e.stopPropagation()}>
-        <div className={styles.closeIcon}>
-        <CloseIcon type="primary" onClick={onClose}/>
-        </div>
+    <div onClick={e => e.stopPropagation()}>
+      <ul className={styles.main}>
         <li className={styles.about}>
         <p className={`${styles.digits} text text_type_digits-large`}>{order}</p>
         </li>
@@ -32,7 +22,5 @@ const OrderDetails = ({onClose}) =>{
     </div>
   );
 }
-  
-  OrderDetails.propTypes = {onClose: PropTypes.func.isRequired, order: ingredientPropType.isRequired,};
   
   export default OrderDetails;

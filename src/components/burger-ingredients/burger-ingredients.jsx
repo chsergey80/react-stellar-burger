@@ -1,6 +1,4 @@
 import { useState, useContext } from "react";
-import PropTypes from "prop-types";
-import { ingredientPropType } from "../../utils/prop-types";
 import IngredientItems from "../ingredient-items/ingredient-items";
 import styles from "./burger-ingredients.module.css"
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -9,7 +7,7 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import { IngredientsContext } from "../../services/itemContext";
 
 function BurgerIngredients() {
-  const ingredients = useContext( IngredientsContext);
+  const ingredients = useContext(IngredientsContext);
   const [currentIngredient, setCurrentIngredient] = useState(null);
   const onOpen = (item) => {setCurrentIngredient(item)};
   const onClose = () => {setCurrentIngredient(null)};
@@ -47,7 +45,5 @@ function BurgerIngredients() {
         <IngredientDetails info={currentIngredient} onClose={onClose}/>
       </Modal>)} 
     </div>)}
-
-BurgerIngredients.propTypes = {ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired};
 
 export default BurgerIngredients;
