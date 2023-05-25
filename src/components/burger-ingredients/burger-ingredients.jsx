@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import IngredientItems from "../ingredient-items/ingredient-items";
+import IngredientItems from "../ingredient-item/ingredient-item";
 import styles from "./burger-ingredients.module.css"
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";

@@ -7,7 +7,6 @@ import {getIngredients} from '../../utils/burger-api';
 import { IngredientsContext } from "../../services/itemContext";
 
 function App() {
-  //const stateInfo = React.useContext(IngredientsContext);
   const [ingredients, setIngredients] = React.useState([]);
   const [isError, setIsError] = React.useState(false);
 

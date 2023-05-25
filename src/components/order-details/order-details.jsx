@@ -1,5 +1,5 @@
-import styles from "./order-details.module.css"
-import checkIcon from "../../images/graphics.svg"
+import styles from "./order-details.module.css";
+import checkIcon from "../../images/graphics.svg";
 
 function OrderDetails({order}) {
   return (
