@@ -2,6 +2,7 @@ import styles from "./order-details.module.css"
 import checkIcon from "../../images/graphics.svg"
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
+import { ingredientPropType } from "../../utils/prop-types";
 import React from "react";
 import { OrderContext } from "../../services/itemContext";
 
@@ -32,6 +33,6 @@ const OrderDetails = ({onClose}) =>{
   );
 }
   
-  OrderDetails.propTypes = {onClose: PropTypes.func.isRequired};
+  OrderDetails.propTypes = {onClose: PropTypes.func.isRequired, order: ingredientPropType.isRequired,};
   
   export default OrderDetails;

@@ -77,6 +77,6 @@ function BurgerConstructor() {
   </>
   )}
 
-BurgerConstructor.propTypes = {ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired};
+BurgerConstructor.propTypes = {ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired, order: ingredientPropType.isRequired};
 
 export default BurgerConstructor;

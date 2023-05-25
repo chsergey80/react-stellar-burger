@@ -47,3 +47,4 @@
               В фале ingredient-items.jsx (компонент Counter) убран хардкод количества ингредиентов, которые есть в наличии.
               В фале burger-constructor.jsx добавлен расчет стоимости бургера через функцию totalPrice с использованием хуков useMemo, useState. Компонент подписан на OrderContext и импортирована функция postOrder. Добавлена функция fetchPostOrderIngredients.
 * 17 commit / Переписан readme.md
+* 18 commit / Промежуточный коммит, добавлена проверка типизации.
