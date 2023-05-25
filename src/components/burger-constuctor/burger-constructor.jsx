@@ -19,6 +19,7 @@ function BurgerConstructor() {
     const priceIngredients = ingredient.reduce((sum, item) => { return sum + item.price}, 0);
     return priceIngredients + burgerBread.price * 2;
   }, [burgerBread, ingredient]);
+
   const [order, setOrder] = React.useState("");
   const orderIngridients = React.useMemo(() => ingredients.map((i) => i._id), [ingredients]);
   function fetchPostOrderIngredients() {
@@ -77,6 +78,6 @@ function BurgerConstructor() {
   </>
   )}
 
-BurgerConstructor.propTypes = {ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired, order: ingredientPropType.isRequired};
+BurgerConstructor.propTypes = {ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired}
 
 export default BurgerConstructor;

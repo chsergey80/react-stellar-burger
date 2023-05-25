@@ -11,7 +11,7 @@ const checkResponse = (res) => {
 const getIngredients = () => {
   return fetch(`${config.urlIngredients}`)
     .then(checkResponse)
-    .catch((err) => {console.log(err)});
+  //  .catch((err) => {console.log(err)});
 }
 
 const postOrder = (array) => {
@@ -23,7 +23,7 @@ const postOrder = (array) => {
     })
   })
     .then(checkResponse)
-    .catch((err) => {console.log(err)});
+  //  .catch((err) => {console.log(err)});
 }
 
 export { getIngredients, postOrder }

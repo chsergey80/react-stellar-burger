@@ -48,3 +48,4 @@
               В фале burger-constructor.jsx добавлен расчет стоимости бургера через функцию totalPrice с использованием хуков useMemo, useState. Компонент подписан на OrderContext и импортирована функция postOrder. Добавлена функция fetchPostOrderIngredients.
 * 17 commit / Переписан readme.md
 * 18 commit / Промежуточный коммит, добавлена проверка типизации.
+* 19 commit / Промежуточный коммит перед сдачей на 1 ревью 8 спринта.
