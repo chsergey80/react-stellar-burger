@@ -1,17 +1,30 @@
 import styles from "./burger-constructor.module.css"
 import { DragIcon, CurrencyIcon, ConstructorElement, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
-import { ingredientPropType } from "../../utils/prop-types";
 import React from "react";
 import Modal from "../modal/modal";
-import PopupOrder from '../order-details/order-details';
+import OrderDetails from '../order-details/order-details';
+import { IngredientsContext } from "../../services/itemContext";
+import { postOrder } from "../../utils/burger-api";
 
-function BurgerConstructor({ingredients}) {
-  const [popupOrder, setPopupOrder] = React.useState(false);
-  const onOpen = () => {setPopupOrder(true)};
-  const onClose = () => {setPopupOrder(false)};
+function BurgerConstructor() {
+  const ingredients = React.useContext(IngredientsContext);
+  const [OrderDetail, setOrderDetail] = React.useState(false);
+  const onOpen = () => {setOrderDetail(true); fetchPostOrderIngredients()};
+  const onClose = () => {setOrderDetail(false)};
   const burgerBread = ingredients.find(item => item.type === 'bun');
   const ingredient = ingredients.filter(item => item.type !== 'bun');
+  const totalPrice = React.useMemo(() => {
+    const priceIngredients = ingredient.reduce((sum, item) => { return sum + item.price}, 0);
+    return priceIngredients + burgerBread.price * 2;
+  }, [burgerBread, ingredient]);
+
+  const [order, setOrder] = React.useState("");
+  const orderIngridients = React.useMemo(() => ingredients.map((i) => i._id), [ingredients]);
+  function fetchPostOrderIngredients() {
+    postOrder(orderIngridients)
+    .then((response) => {setOrder(response.order.number.toString())})
+      .catch(console.error)
+  }
 
   return (
   <>
@@ -45,20 +58,23 @@ function BurgerConstructor({ingredients}) {
         thumbnail={burgerBread.image}/>
     </div>
     <div className={`pt-5 pr-8 ${styles.order}`}>
+
       <div className={styles.totalPrice}>
-        <p className="text text_type_digits-medium pr-2">610</p>
+        <p className="text text_type_digits-medium pr-2">{totalPrice}</p>
         <CurrencyIcon type="primary" />
       </div>
       <Button onClick={onOpen} htmlType="button" type="primary" size="large">Оформить заказ</Button>
+
     </div>
   </div>
-  {popupOrder && <Modal onClose={onClose}>
-          <PopupOrder onClose={onClose}>
-          </PopupOrder>
-  </Modal>}
+
+    {OrderDetail && <Modal onClose={onClose}>
+      <OrderDetails onClose={onClose} order={order}>
+      </OrderDetails>
+    </Modal>}
+
   </>
   )}
 
-BurgerConstructor.propTypes = {ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired};
 
 export default BurgerConstructor;

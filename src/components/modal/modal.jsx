@@ -3,6 +3,7 @@ import ModalOverlay from "../modal-overlay/modal-overlay";
 import styles from "./modal.module.css";
 import React from "react";
 import ReactDOM from "react-dom";
+import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 const modalRoot = document.getElementById("react-modals");
 
@@ -17,6 +18,9 @@ function Modal({ children, onClose }) {
       (<>
         <ModalOverlay onClose={onClose}/>
         <div className={styles.main} onClick={onClose}>
+          <button onClick={onClose} className={styles.close_button}>
+            <CloseIcon type="primary" />
+          </button>
           {children}
         </div>
       </>),

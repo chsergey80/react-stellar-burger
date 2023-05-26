@@ -1,18 +1,12 @@
-import styles from "./order-details.module.css"
-import checkIcon from "../../images/graphics.svg"
-import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
+import styles from "./order-details.module.css";
+import checkIcon from "../../images/graphics.svg";
 
-const OrderDetails = ({onClose}) =>{
-
+function OrderDetails({order}) {
   return (
-    <div>
-      <ul className={styles.main}  onClick={e => e.stopPropagation()}>
-        <div className={styles.closeIcon}>
-        <CloseIcon type="primary" onClick={onClose}/>
-        </div>
+    <div onClick={e => e.stopPropagation()}>
+      <ul className={styles.main}>
         <li className={styles.about}>
-        <p className={`${styles.digits} text text_type_digits-large`}>034536</p>
+        <p className={`${styles.digits} text text_type_digits-large`}>{order}</p>
         </li>
         <li className={styles.order}>
         <p className="text text_type_main-medium">идентификатор заказа</p>
@@ -28,7 +22,5 @@ const OrderDetails = ({onClose}) =>{
     </div>
   );
 }
-  
-  OrderDetails.propTypes = {onClose: PropTypes.func.isRequired};
   
   export default OrderDetails;
