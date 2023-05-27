@@ -60,3 +60,4 @@
 * 22 commit / Отредактирован файл .gitignore
 ## Step - 2 (Sprint 8) Проект. Практика Redux и React DND
 * 23 commit / Создана ветка month-8/step-2 из ветки main с целью сохранить созданные папки и части стартового кода.
+* 24 commit / Созданы папки actions для экшенов и reducers для редъюсеров в папке services.
