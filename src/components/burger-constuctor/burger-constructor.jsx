@@ -3,31 +3,24 @@ import { DragIcon, CurrencyIcon, ConstructorElement, Button } from "@ya.praktiku
 import React from "react";
 import Modal from "../modal/modal";
 import OrderDetails from '../order-details/order-details';
-import { IngredientsContext } from "../../services/itemContext";
-import { postOrder } from "../../utils/burger-api";
+import { getOrder } from '../../services/actions/api';
+import { useSelector, useDispatch } from 'react-redux';
 
 function BurgerConstructor() {
-  const ingredients = React.useContext(IngredientsContext);
-  const [OrderDetail, setOrderDetail] = React.useState(false);
-  const onOpen = () => {setOrderDetail(true); fetchPostOrderIngredients()};
-  const onClose = () => {setOrderDetail(false)};
-  const burgerBread = ingredients.find(item => item.type === 'bun');
-  const ingredient = ingredients.filter(item => item.type !== 'bun');
-  const totalPrice = React.useMemo(() => {
-    const priceIngredients = ingredient.reduce((sum, item) => { return sum + item.price}, 0);
-    return priceIngredients + burgerBread.price * 2;
-  }, [burgerBread, ingredient]);
-
-  const [order, setOrder] = React.useState("");
-  const orderIngridients = React.useMemo(() => ingredients.map((i) => i._id), [ingredients]);
-  function fetchPostOrderIngredients() {
-    postOrder(orderIngridients)
-    .then((response) => {setOrder(response.order.number.toString())})
-      .catch(console.error)
-  }
+  const { data } = useSelector(store => store.data);
+  const dispatch = useDispatch();
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const orderIngridients = React.useMemo(() => data.map((i) => i._id), [data]);
+  const onOpen = () => {setIsModalOpen(true); dispatch(getOrder(orderIngridients))};
+  const onClose = () => {setIsModalOpen(false)};
+  const burgerBread = data.find(item => item.type === 'bun');
+  const ingredient = data.filter(item => item.type !== 'bun');
+  const burgerBreadPrice = burgerBread && burgerBread.price;
+  const totalPrice = React.useMemo(() => {return ingredient.reduce((sum, item) => { return sum + item.price}, burgerBreadPrice*2)}, [burgerBread, ingredient]);
 
   return (
   <>
+  { data.length && 
   <div className={` ${styles.main} pt-5 pl-4 pr-4`}>
     <div className={` ${styles.bread} pb-5 pr-5`}>
       <ConstructorElement
@@ -58,23 +51,19 @@ function BurgerConstructor() {
         thumbnail={burgerBread.image}/>
     </div>
     <div className={`pt-5 pr-8 ${styles.order}`}>
-
       <div className={styles.totalPrice}>
         <p className="text text_type_digits-medium pr-2">{totalPrice}</p>
         <CurrencyIcon type="primary" />
       </div>
       <Button onClick={onOpen} htmlType="button" type="primary" size="large">Оформить заказ</Button>
-
     </div>
   </div>
-
-    {OrderDetail && <Modal onClose={onClose}>
-      <OrderDetails onClose={onClose} order={order}>
+  }
+    {isModalOpen && <Modal onClose={onClose}>
+      <OrderDetails onClose={onClose} >
       </OrderDetails>
     </Modal>}
-
   </>
   )}
-
 
 export default BurgerConstructor;

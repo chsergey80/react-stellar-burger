@@ -5,7 +5,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const modalRoot = document.getElementById("react-modals");
+const modalRoot = document.getElementById("modals");
 
 function Modal({ children, onClose }) {
   React.useEffect(() => {

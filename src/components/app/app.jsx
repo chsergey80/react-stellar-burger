@@ -4,7 +4,6 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constuctor/burger-constructor';
 import React from 'react';
 import {getIngredients} from '../../utils/burger-api';
-import { IngredientsContext } from "../../services/itemContext";
 
 function App() {
   const [ingredients, setIngredients] = React.useState([]);
@@ -27,11 +26,8 @@ function App() {
       <AppHeader />
       {isError ? <h2 className={styles.error}>Ошибка загрузки данных с сервера</h2> :
         <main className={styles.main}>
-        { ingredients.length &&
-          <IngredientsContext.Provider value={ingredients}>
-            <BurgerIngredients  />
-            <BurgerConstructor  />
-          </IngredientsContext.Provider>}
+          { ingredients.length && <BurgerIngredients  />}
+          { ingredients.length && <BurgerConstructor  />}
         </main>
       }
     </div>

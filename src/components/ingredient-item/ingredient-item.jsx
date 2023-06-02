@@ -3,6 +3,7 @@ import styles from "./ingredient-item.module.css"
 import { ingredientPropType } from "../../utils/prop-types";
 
 const IngredientItems = ({ingredients, current}) => {
+  
   return (
     <li className={styles.main} onClick={() => current(ingredients)}>
       <Counter size="default" className={styles.counter} extraClass="m-1" />

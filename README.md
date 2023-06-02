@@ -11,6 +11,19 @@
 * Запустите проект – npm start
 * Перейти на http://localhost:3000/
 
+## Набор UI-компонентов для курсового проекта на профессии Reaсt-разработчик 
+* Адрес хранилища (https://yandex-practicum.github.io/react-developer-burger-ui-components/docs/)
+* Установка: npm install @ya.praktikum/react-developer-burger-ui-components
+* Пример импорта компонента: import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
+
+## Макет проекта в figma
+* Макет проекта (Проект. Перенос состояния в Context) в figma https://bit.ly/3IZ7rSr 
+
+## Чек листы по проекту (по всем этапам доработки)
+* Sprint 7 https://code.s3.yandex.net/web-plus/checklists/checklist_pdf/checklist_7.pdf
+* Sprint 8 https://code.s3.yandex.net/web-plus/checklists/checklist_pdf/checklist_8.pdf
+
+
 # Процесс работы над проектом:
 ## Step -1 (Sprint 7) "Промежуточный проект. CRA-заготовка и структура папок под компоненты"
 * 1 commit / Установлены пакеты npm. Создан .gitignore и ветка month-7/step-1
@@ -62,3 +75,11 @@
 * 23 commit / Создана ветка month-8/step-2 из ветки main с целью сохранить созданные папки и части стартового кода.
 * 24 commit / Созданы папки actions для экшенов и reducers для редъюсеров в папке services.
 * 25 commit / Подключен redux-devtools-extension в корневом /главном/ index.js в services/reducers/index.js создан корневой редьюсер.
+* 26 commit / Рефакторинг проекта. Созданы экшены и редьюсеры. Хранилище создано и инициализировано, наполяем его бизнес-логикой приложения. С помощью экшенов и редьюсеров создаем следующую функциональность:
+    Получение списка ингредиентов от API (используется в компоненте BurgerIngredients).
+    Получение списка ингредиентов для конструктора бургера (используется в компоненте BurgerConstructor).
+    Добавление данных о просматриваемом в модальном окне IngredientDetails ингредиенте.
+    Удаление данных о просматриваемом в модальном окне ингредиенте при закрытии модального окна.
+    Получение и обновление номера заказа в модальном окне OrderDetails.
+    К хранилищу подключен middleware redux-thunk и Redux Devtools.
+    Доработан интерфейс навигации по ингредиентам. В компоненте BurgerIngredients есть три переключателя: «Булки», «Соусы» и «Начинки», которые будут исползоваться как панель навигации.
