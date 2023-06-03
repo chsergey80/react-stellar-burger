@@ -4,6 +4,8 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constuctor/burger-constructor';
 import React from 'react';
 import {getIngredients} from '../../utils/burger-api';
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend"
 
 function App() {
   const [ingredients, setIngredients] = React.useState([]);
@@ -23,13 +25,15 @@ function App() {
 
   return (
     <div className={styles.app}>
-      <AppHeader />
-      {isError ? <h2 className={styles.error}>Ошибка загрузки данных с сервера</h2> :
-        <main className={styles.main}>
-          { ingredients.length && <BurgerIngredients  />}
-          { ingredients.length && <BurgerConstructor  />}
-        </main>
-      }
+      <DndProvider backend={HTML5Backend}>
+        <AppHeader />
+        {isError ? <h2 className={styles.error}>Ошибка загрузки данных с сервера</h2> :
+          <main className={styles.main}>
+            { ingredients.length && <BurgerIngredients  />}
+            { ingredients.length && <BurgerConstructor  />}
+          </main>
+        }
+      </DndProvider>
     </div>
   );
 }

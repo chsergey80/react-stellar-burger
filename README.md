@@ -8,6 +8,8 @@
 ## Как начать
 * Клонировать репозиторий – git clone https://github.com/chsergey80/react-stellar-burger.git
 * Установите зависимости – npm i
+* Установите зависимости - npm i react-intersection-observer
+* Установите зависимости - npm i react-redux redux-thunk redux @reduxjs/toolkit react-dnd react-dnd-html5-backend
 * Запустите проект – npm start
 * Перейти на http://localhost:3000/
 
@@ -83,3 +85,6 @@
     Получение и обновление номера заказа в модальном окне OrderDetails.
     К хранилищу подключен middleware redux-thunk и Redux Devtools.
     Доработан интерфейс навигации по ингредиентам. В компоненте BurgerIngredients есть три переключателя: «Булки», «Соусы» и «Начинки», которые будут исползоваться как панель навигации.
+* 27 commit / Установлена библиотека UUID для создания случайного уникального индекса (понадобиться при перетаскивании)
+     установка npm install uuid/ Импорт в тело кода =>  import { v4 as uuidv4 } from 'uuid'.
+     Подключены бибилиотеки react-dnd и "react-dnd-html5-backend" в модуле App.
