@@ -5,51 +5,96 @@ import Modal from "../modal/modal";
 import OrderDetails from '../order-details/order-details';
 import { getOrder } from '../../services/actions/api';
 import { useSelector, useDispatch } from 'react-redux';
+import {BUN_MOVE, SAUCE_FILLING_MOVE, ELEMENT_REMOVE, moveIngredientItem} from '../../services/actions/burger-ingredients';
+import {useDrop} from 'react-dnd';
+import { v4 as uuidv4 } from 'uuid';
+import { Element } from '../element/element';
 
 function BurgerConstructor() {
   const { data } = useSelector(store => store.data);
+  const buns = useSelector(store => store.ingredients.bun);
+  const ingredients = useSelector(store => store.ingredients.ingredients);
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const orderIngridients = React.useMemo(() => data.map((i) => i._id), [data]);
+  const orderIngridients = React.useMemo(() => data.map((a) => a._id), [data]);
   const onOpen = () => {setIsModalOpen(true); dispatch(getOrder(orderIngridients))};
   const onClose = () => {setIsModalOpen(false)};
-  const burgerBread = data.find(item => item.type === 'bun');
-  const ingredient = data.filter(item => item.type !== 'bun');
-  const burgerBreadPrice = burgerBread && burgerBread.price;
-  const totalPrice = React.useMemo(() => {return ingredient.reduce((sum, item) => { return sum + item.price}, burgerBreadPrice*2)}, [burgerBread, ingredient]);
+  const totalPrice = React.useMemo(() => {return ingredients.reduce((sum, item) => { return sum + item.price}, buns ? (buns.price*2) : 0)}, [buns, ingredients]);
+  const onDropHandler = (itemId) => {
+    if(itemId.type === 'bun' ){ return dispatch({
+      type: BUN_MOVE,
+      bun: itemId})}
+    if(itemId.type === 'sauce' || 'main' ){ return dispatch({
+      type: SAUCE_FILLING_MOVE,
+      ingredients: itemId,
+      id: uuidv4()})}
+    }
+    const removeIngredient =(item)=> {
+      return dispatch({
+        type: ELEMENT_REMOVE,
+        id: item.id
+        
+      })
+    }
+
+const [, dropTarget] = useDrop({
+  accept: 'ingredients',
+  drop(itemId) {
+      onDropHandler(itemId);
+  },
+});
+
+  //функция обновления состояния при сортировке
+  const moveItemIngredient = useCallback(
+    (dragIndex, hoverIndex) => {
+      dispatch(moveIngredientItem(dragIndex, hoverIndex));
+    },
+    [dispatch]
+  );
+
+
 
   return (
   <>
-  { data.length && 
-  <div className={` ${styles.main} pt-5 pl-4 pr-4`}>
+  <section ref={dropTarget} className={` ${styles.main} pt-5 pl-4 pr-4`}>
+
     <div className={` ${styles.bread} pb-5 pr-5`}>
-      <ConstructorElement
-        type="top"
-        isLocked={true}
-        text={`${burgerBread.name} (верх)`}
-        price={burgerBread.price}
-        thumbnail={burgerBread.image}/>
+      {buns &&
+        <ConstructorElement
+          type="top"
+          isLocked={true}
+          text={`${buns.name} (верх)`}
+          price={buns.price}
+          thumbnail={buns.image}/>
+      }
     </div>
+
     <div className={`custom-scroll ${styles.scrollbox}`}>
       <ul className={styles.list}>
-        {ingredient.map((item) => (
+        {ingredients.map((item) => (
           <li className={styles.items} key={item._id}>
             <DragIcon type="primary" />
             <ConstructorElement
               text={item.name}
               price={item.price}
-              thumbnail={item.image}/>
+              thumbnail={item.image}
+              handleClose = {() => removeIngredient(item)}/>
+              moveItemIngredient={moveItemIngredient}
           </li>))}
       </ul>
     </div>
+
     <div className={` ${styles.bread} pb-5 pr-5 pt-5`}>
-      <ConstructorElement
-        type="bottom"
-        isLocked={true}
-        text={`${burgerBread.name} (низ)`}
-        price={burgerBread.price}
-        thumbnail={burgerBread.image}/>
+      {buns&&
+        <ConstructorElement
+          type="bottom"
+          isLocked={true}
+          text={`${buns.name} (низ)`}
+          price={buns.price}
+          thumbnail={buns.image}/>
+      }
     </div>
+
     <div className={`pt-5 pr-8 ${styles.order}`}>
       <div className={styles.totalPrice}>
         <p className="text text_type_digits-medium pr-2">{totalPrice}</p>
@@ -57,8 +102,9 @@ function BurgerConstructor() {
       </div>
       <Button onClick={onOpen} htmlType="button" type="primary" size="large">Оформить заказ</Button>
     </div>
-  </div>
-  }
+
+  </section>
+
     {isModalOpen && <Modal onClose={onClose}>
       <OrderDetails onClose={onClose} >
       </OrderDetails>

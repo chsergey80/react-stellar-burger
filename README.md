@@ -10,6 +10,7 @@
 * Установите зависимости – npm i
 * Установите зависимости - npm i react-intersection-observer
 * Установите зависимости - npm i react-redux redux-thunk redux @reduxjs/toolkit react-dnd react-dnd-html5-backend
+* Установите зависимости - npm install uuid
 * Запустите проект – npm start
 * Перейти на http://localhost:3000/
 
@@ -88,3 +89,4 @@
 * 27 commit / Установлена библиотека UUID для создания случайного уникального индекса (понадобиться при перетаскивании)
      установка npm install uuid/ Импорт в тело кода =>  import { v4 as uuidv4 } from 'uuid'.
      Подключены бибилиотеки react-dnd и "react-dnd-html5-backend" в модуле App.
+* 28 commit / Добавлены экшены BUN_MOVE, SAUCE_FILLING_MOVE, ELEMENT_REMOVE в файлы services/actions/burger-ingredients.js и services/reducers/burger-ingredients.js.

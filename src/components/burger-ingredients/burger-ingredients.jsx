@@ -6,7 +6,7 @@ import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { useSelector, useDispatch } from 'react-redux';
 import { getBurgerData } from '../../services/actions/api';
-import {ITEM_OPEN, ITEM_CLOSE, MODAL_OPEN, MODAL_CLOSE} from '../../services/actions/burger-ingredients';
+import {ITEM_OPEN, ITEM_CLOSE, MODAL_OPEN, MODAL_CLOSE, BUN_MOVE} from '../../services/actions/burger-ingredients';
 import { useInView } from "react-intersection-observer";
 
 function BurgerIngredients() {
@@ -25,7 +25,7 @@ function BurgerIngredients() {
   const burgerBuns = data.filter((ingredient) => ingredient.type === 'bun');
   const burgerSauces = data.filter((ingredient) => ingredient.type === 'sauce');
   const burgerMains = data.filter((ingredient) => ingredient.type === 'main');
-  const getIngredients = (data) => (data.map(item => (<IngredientItems key={item._id} ingredients={item} current={onOpen} onClose={onClose}/>)));
+  const getIngredients = (data) => (data.map(item => (<IngredientItems key={item._id} item={item} current={onOpen} onClose={onClose}/>)));
   const [burgerBun, burgerBunEntry] = useInView({ threshold: 1, root: document.querySelector('#viewport') });
   const [burgerSauce, burgerSauceEntry] = useInView({ threshold: 0.9, root: document.querySelector('#viewport')});
   const [burgerMain, burgerMainEntry] = useInView({ threshold: 0.2, root: document.querySelector('#viewport')});

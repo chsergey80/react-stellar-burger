@@ -10,14 +10,11 @@ import { HTML5Backend } from "react-dnd-html5-backend"
 function App() {
   const [ingredients, setIngredients] = React.useState([]);
   const [isError, setIsError] = React.useState(false);
-
   React.useEffect(() => {
     const getBurgrInfo = async () => {
-      try{
-        const burgerInfo = await getIngredients();
+      try{const burgerInfo = await getIngredients();
         setIngredients(burgerInfo.data)}
-      catch (error) {
-        setIsError(true)
+      catch (error) {setIsError(true)
         console.log('Ошибка загрузки данных', error)}
     }
     getBurgrInfo();
