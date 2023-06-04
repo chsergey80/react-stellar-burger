@@ -5,8 +5,8 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { useSelector, useDispatch } from 'react-redux';
-import { getBurgerData } from '../../services/actions/api';
-import {ITEM_OPEN, ITEM_CLOSE, MODAL_OPEN, MODAL_CLOSE, BUN_MOVE} from '../../services/actions/burger-ingredients';
+import { getBurgerData } from '../../services/actions/actions';
+import {ITEM_OPEN, ITEM_CLOSE, MODAL_OPEN, MODAL_CLOSE} from '../../services/actions/actions';
 import { useInView } from "react-intersection-observer";
 
 function BurgerIngredients() {
@@ -27,9 +27,9 @@ function BurgerIngredients() {
   const burgerMains = data.filter((ingredient) => ingredient.type === 'main');
   const getIngredients = (data) => (data.map(item => (<IngredientItems key={item._id} item={item} current={onOpen} onClose={onClose}/>)));
   const [burgerBun, burgerBunEntry] = useInView({ threshold: 1, root: document.querySelector('#viewport') });
-  const [burgerSauce, burgerSauceEntry] = useInView({ threshold: 0.9, root: document.querySelector('#viewport')});
+  const [burgerSauce, burgerSauceEntry] = useInView({ threshold: 0.90, root: document.querySelector('#viewport')});
   const [burgerMain, burgerMainEntry] = useInView({ threshold: 0.2, root: document.querySelector('#viewport')});
-  const [current, setCurrent] = useState("burgerBuns");
+  const [current, setCurrent] = useState();
   const tabScroll = (selectTab) => {
     setCurrent(selectTab);
     const item = document.getElementById(selectTab);

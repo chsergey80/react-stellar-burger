@@ -89,4 +89,6 @@
 * 27 commit / Установлена библиотека UUID для создания случайного уникального индекса (понадобиться при перетаскивании)
      установка npm install uuid/ Импорт в тело кода =>  import { v4 as uuidv4 } from 'uuid'.
      Подключены бибилиотеки react-dnd и "react-dnd-html5-backend" в модуле App.
-* 28 commit / Добавлены экшены BUN_MOVE, SAUCE_FILLING_MOVE, ELEMENT_REMOVE в файлы services/actions/burger-ingredients.js и services/reducers/burger-ingredients.js.
+* 28 commit / Добавлены экшены BUN_MOVE, SAUCE_FILLING_MOVE, ELEMENT_REMOVE в файлы services/actions/
+    burger-ingredients.js и services/reducers/burger-ingredients.js.
+* 29 commit / Промежуточный коммит. Рефакторинг кода.

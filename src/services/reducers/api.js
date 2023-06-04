@@ -5,7 +5,7 @@ import {
   GET_ORDER_REQUEST,
   GET_ORDER_SUCCESS,
   GET_ORDER_FAILED,
-} from '../actions/api';
+} from '../actions/actions';
 
 const initialStateData = {
   data: [],
