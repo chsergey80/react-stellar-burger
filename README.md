@@ -92,3 +92,4 @@
 * 28 commit / Добавлены экшены BUN_MOVE, SAUCE_FILLING_MOVE, ELEMENT_REMOVE в файлы services/actions/
     burger-ingredients.js и services/reducers/burger-ingredients.js.
 * 29 commit / Промежуточный коммит. Рефакторинг кода.
+* 30 commit / Удален из проекта файл itemContext.js.
