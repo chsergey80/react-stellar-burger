@@ -1,6 +1,6 @@
 import styles from "./burger-constructor.module.css"
 import { CurrencyIcon, ConstructorElement, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import React, {useCallback}  from "react";
+import { useState, useMemo, useCallback}  from "react";
 import Modal from "../modal/modal";
 import OrderDetails from '../order-details/order-details';
 import { getOrder } from '../../services/actions/actions';
@@ -14,13 +14,13 @@ function BurgerConstructor() {
   const buns = useSelector(store => store.ingredients.bun);
   const ingredients = useSelector(store => store.ingredients.ingredients);
   const dispatch = useDispatch();
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const orderIngridients = React.useMemo(() => ingredients.map((a) => a._id).concat(buns&&buns._id), [ingredients, buns]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const orderIngridients = useMemo(() => ingredients.map((a) => a._id).concat(buns&&buns._id), [ingredients, buns]);
   console.log(orderIngridients);
   
   const onOpen = () => {setIsModalOpen(true); dispatch(getOrder(orderIngridients))};
   const onClose = () => {setIsModalOpen(false)};
-  const totalPrice = React.useMemo(() => {return ingredients.reduce((sum, item) => { return sum + item.price}, buns ? (buns.price*2) : 0)}, [buns, ingredients]);
+  const totalPrice = useMemo(() => {return ingredients.reduce((sum, item) => { return sum + item.price}, buns ? (buns.price*2) : 0)}, [buns, ingredients]);
   const onDropHandler = (itemId) => {
     if(itemId.type === 'bun' ){ return dispatch({
       type: BUN_MOVE,

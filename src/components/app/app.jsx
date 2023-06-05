@@ -2,15 +2,15 @@ import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constuctor/burger-constructor';
-import React from 'react';
+import {useState, useEffect} from 'react';
 import {getIngredients} from '../../utils/burger-api';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend"
 
 function App() {
-  const [ingredients, setIngredients] = React.useState([]);
-  const [isError, setIsError] = React.useState(false);
-  React.useEffect(() => {
+  const [ingredients, setIngredients] = useState([]);
+  const [isError, setIsError] = useState(false);
+  useEffect(() => {
     const getBurgrInfo = async () => {
       try{const burgerInfo = await getIngredients();
         setIngredients(burgerInfo.data)}
