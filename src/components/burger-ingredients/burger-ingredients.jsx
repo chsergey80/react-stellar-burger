@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import IngredientItems from "../ingredient-item/ingredient-item";
 import styles from "./burger-ingredients.module.css"
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -22,9 +22,9 @@ function BurgerIngredients() {
     dispatch({type: MODAL_CLOSE });
     dispatch({type: ITEM_CLOSE});
   }
-  const burgerBuns = data.filter((ingredient) => ingredient.type === 'bun');
-  const burgerSauces = data.filter((ingredient) => ingredient.type === 'sauce');
-  const burgerMains = data.filter((ingredient) => ingredient.type === 'main');
+  const burgerBuns = useMemo(()=> data.filter((ingredient) => ingredient.type === 'bun'), [data]);
+  const burgerSauces = useMemo(()=> data.filter((ingredient) => ingredient.type === 'sauce'), [data]);
+  const burgerMains =  useMemo(()=> data.filter((ingredient) => ingredient.type === 'main'), [data]);
   const getIngredients = (data) => (data.map(item => (<IngredientItems key={item._id} item={item} current={onOpen} onClose={onClose}/>)));
   const [burgerBun, burgerBunEntry] = useInView({ threshold: 1, root: document.querySelector('#viewport') });
   const [burgerSauce, burgerSauceEntry] = useInView({ threshold: 0.90, root: document.querySelector('#viewport')});
