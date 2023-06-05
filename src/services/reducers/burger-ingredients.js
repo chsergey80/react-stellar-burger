@@ -20,7 +20,7 @@ export const itemReducer = (state = initialStateItem, action) => {
 
 const initialStateModal = {isOpen: false};
 
-export const madalReducer = (state = initialStateModal, action) => {
+export const modalReducer = (state = initialStateModal, action) => {
   switch (action.type) {
     case MODAL_OPEN: {
       return {...state,
