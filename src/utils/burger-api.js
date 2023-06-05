@@ -20,15 +20,13 @@ function request(url, options) {
     .then(checkResponse)
 };
 
-const getIngredients = () => {return request(`${config.urlIngredients}`)};
+const getIngredients = () => request(`${config.urlIngredients}`);
 
-const postOrder = (array) => {
+const postOrder = (ingredients) => {
   return request(`${config.urlOrder}`, {
     method: 'POST',
     headers: config.headers,
-    body: JSON.stringify({
-      'ingredients': array,
-    })
+    body: JSON.stringify({ingredients})
   })}
 
 export { getIngredients, postOrder }

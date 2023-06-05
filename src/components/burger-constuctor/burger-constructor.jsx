@@ -1,80 +1,83 @@
 import styles from "./burger-constructor.module.css"
-import { DragIcon, CurrencyIcon, ConstructorElement, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import React from "react";
+import { CurrencyIcon, ConstructorElement, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useState, useMemo, useCallback}  from "react";
 import Modal from "../modal/modal";
 import OrderDetails from '../order-details/order-details';
-import { IngredientsContext } from "../../services/itemContext";
-import { postOrder } from "../../utils/burger-api";
+import { getOrder } from '../../services/actions/actions';
+import { useSelector, useDispatch } from 'react-redux';
+import {BUN_MOVE, SAUCE_FILLING_MOVE, UPDATE_ARR_ELEMENTS} from '../../services/actions/actions';
+import {useDrop} from 'react-dnd';
+import { v4 as uuidv4 } from 'uuid';
+import { Element } from './element/element';
 
 function BurgerConstructor() {
-  const ingredients = React.useContext(IngredientsContext);
-  const [OrderDetail, setOrderDetail] = React.useState(false);
-  const onOpen = () => {setOrderDetail(true); fetchPostOrderIngredients()};
-  const onClose = () => {setOrderDetail(false)};
-  const burgerBread = ingredients.find(item => item.type === 'bun');
-  const ingredient = ingredients.filter(item => item.type !== 'bun');
-  const totalPrice = React.useMemo(() => {
-    const priceIngredients = ingredient.reduce((sum, item) => { return sum + item.price}, 0);
-    return priceIngredients + burgerBread.price * 2;
-  }, [burgerBread, ingredient]);
+  const buns = useSelector(store => store.ingredients.bun);
+  const ingredients = useSelector(store => store.ingredients.ingredients);
+  const dispatch = useDispatch();
+  const [isModalOpen, setIsModalOpen] = useState(null);
+  const orderIngridients = useMemo(() => ingredients.map((a) => a._id).concat(buns&&buns._id), [ingredients, buns]);
+  const onOpen = () => {setIsModalOpen(true); dispatch(getOrder(orderIngridients))};
+  const onClose = () => {setIsModalOpen(null)};
+  const totalPrice = useMemo(() => {return ingredients.reduce((sum, item) => { return sum + item.price}, buns ? (buns.price*2) : 0)}, [buns, ingredients]);
+  const onDropHandler = (itemId) => {
+    if(itemId.type === 'bun' ){ return dispatch({
+      type: BUN_MOVE,
+      bun: itemId})}
+    if(itemId.type === 'sauce' || 'main' ){ return dispatch({
+      type: SAUCE_FILLING_MOVE,
+      ingredients: itemId,
+      id: uuidv4()})}
+    }
+const [, dropTarget] = useDrop({accept: 'ingredients', drop(itemId) {onDropHandler(itemId)}});
 
-  const [order, setOrder] = React.useState("");
-  const orderIngridients = React.useMemo(() => ingredients.map((i) => i._id), [ingredients]);
-  function fetchPostOrderIngredients() {
-    postOrder(orderIngridients)
-    .then((response) => {setOrder(response.order.number.toString())})
-      .catch(console.error)
-  }
+const moveListItem = useCallback(
+  (dragIndex, hoverIndex) => {
+    dispatch({
+      type: UPDATE_ARR_ELEMENTS,
+      dragIndex: dragIndex,
+      hoverIndex: hoverIndex})},
+  [dispatch])
 
   return (
   <>
-  <div className={` ${styles.main} pt-5 pl-4 pr-4`}>
-    <div className={` ${styles.bread} pb-5 pr-5`}>
-      <ConstructorElement
-        type="top"
-        isLocked={true}
-        text={`${burgerBread.name} (верх)`}
-        price={burgerBread.price}
-        thumbnail={burgerBread.image}/>
-    </div>
-    <div className={`custom-scroll ${styles.scrollbox}`}>
-      <ul className={styles.list}>
-        {ingredient.map((item) => (
-          <li className={styles.items} key={item._id}>
-            <DragIcon type="primary" />
-            <ConstructorElement
-              text={item.name}
-              price={item.price}
-              thumbnail={item.image}/>
-          </li>))}
-      </ul>
-    </div>
-    <div className={` ${styles.bread} pb-5 pr-5 pt-5`}>
-      <ConstructorElement
-        type="bottom"
-        isLocked={true}
-        text={`${burgerBread.name} (низ)`}
-        price={burgerBread.price}
-        thumbnail={burgerBread.image}/>
-    </div>
-    <div className={`pt-5 pr-8 ${styles.order}`}>
-
-      <div className={styles.totalPrice}>
-        <p className="text text_type_digits-medium pr-2">{totalPrice}</p>
-        <CurrencyIcon type="primary" />
+    <section ref={dropTarget} className={` ${styles.main} pt-5 pl-4 pr-4`}>
+      <div className={` ${styles.bread} pb-5 pr-5`}>
+        {buns &&
+          <ConstructorElement
+            type="top"
+            isLocked={true}
+            text={`${buns.name} (верх)`}
+            price={buns.price}
+            thumbnail={buns.image}/>}
       </div>
-      <Button onClick={onOpen} htmlType="button" type="primary" size="large">Оформить заказ</Button>
-
-    </div>
-  </div>
-
-    {OrderDetail && <Modal onClose={onClose}>
-      <OrderDetails onClose={onClose} order={order}>
+      <div  className={`custom-scroll ${styles.scrollbox}`}>
+        <ul  className={styles.list}>
+          {ingredients.map((item, index) => (<Element key={item.id} index={index} item={item} moveListItem={moveListItem}/>))}
+        </ul>
+      </div> 
+      <div className={` ${styles.bread} pb-5 pr-5 pt-5`}>
+        {buns&&
+          <ConstructorElement
+            type="bottom"
+            isLocked={true}
+            text={`${buns.name} (низ)`}
+            price={buns.price}
+            thumbnail={buns.image}/>
+        }
+      </div>
+      <div className={`pt-5 pr-8 ${styles.order}`}>
+        <div className={styles.totalPrice}>
+          <p className="text text_type_digits-medium pr-2">{totalPrice}</p>
+          <CurrencyIcon type="primary" />
+        </div>
+        <Button onClick={onOpen} htmlType="button" type="primary" size="large">Оформить заказ</Button>
+      </div>
+    </section>
+    {isModalOpen && <Modal onClose={onClose}>
+      <OrderDetails onClose={onClose} >
       </OrderDetails>
     </Modal>}
-
   </>
   )}
-
 
 export default BurgerConstructor;
