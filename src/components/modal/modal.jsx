@@ -4,7 +4,6 @@ import styles from "./modal.module.css";
 import {useEffect} from "react";
 import ReactDOM from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useEffect } from "react";
 
 const modalRoot = document.getElementById("modals");
 

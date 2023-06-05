@@ -9,7 +9,7 @@ import { HTML5Backend } from "react-dnd-html5-backend"
 
 function App() {
   const [ingredients, setIngredients] = useState([]);
-  const [isError, setIsError] = useState(false);
+  const [isError, setIsError] = useState(null);
   useEffect(() => {
     const getBurgrInfo = async () => {
       try{const burgerInfo = await getIngredients();

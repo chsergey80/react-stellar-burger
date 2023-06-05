@@ -14,12 +14,12 @@ function BurgerConstructor() {
   const buns = useSelector(store => store.ingredients.bun);
   const ingredients = useSelector(store => store.ingredients.ingredients);
   const dispatch = useDispatch();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(null);
   const orderIngridients = useMemo(() => ingredients.map((a) => a._id).concat(buns&&buns._id), [ingredients, buns]);
   console.log(orderIngridients);
   
   const onOpen = () => {setIsModalOpen(true); dispatch(getOrder(orderIngridients))};
-  const onClose = () => {setIsModalOpen(false)};
+  const onClose = () => {setIsModalOpen(null)};
   const totalPrice = useMemo(() => {return ingredients.reduce((sum, item) => { return sum + item.price}, buns ? (buns.price*2) : 0)}, [buns, ingredients]);
   const onDropHandler = (itemId) => {
     if(itemId.type === 'bun' ){ return dispatch({
