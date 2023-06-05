@@ -16,8 +16,6 @@ function BurgerConstructor() {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(null);
   const orderIngridients = useMemo(() => ingredients.map((a) => a._id).concat(buns&&buns._id), [ingredients, buns]);
-  console.log(orderIngridients);
-  
   const onOpen = () => {setIsModalOpen(true); dispatch(getOrder(orderIngridients))};
   const onClose = () => {setIsModalOpen(null)};
   const totalPrice = useMemo(() => {return ingredients.reduce((sum, item) => { return sum + item.price}, buns ? (buns.price*2) : 0)}, [buns, ingredients]);
@@ -30,7 +28,6 @@ function BurgerConstructor() {
       ingredients: itemId,
       id: uuidv4()})}
     }
-
 const [, dropTarget] = useDrop({accept: 'ingredients', drop(itemId) {onDropHandler(itemId)}});
 
 const moveListItem = useCallback(

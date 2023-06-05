@@ -20,7 +20,7 @@ function request(url, options) {
     .then(checkResponse)
 };
 
-const getIngredients = () => {return request(`${config.urlIngredients}`)};
+const getIngredients = () => request(`${config.urlIngredients}`);
 
 const postOrder = (ingredients) => {
   return request(`${config.urlOrder}`, {
