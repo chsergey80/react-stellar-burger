@@ -15,8 +15,7 @@ function App() {
       try{const burgerInfo = await getIngredients();
         setIngredients(burgerInfo.data)}
       catch (error) {setIsError(true)
-        console.log('Ошибка загрузки данных', error)}
-    }
+        console.log('Ошибка загрузки данных', error)}}
     getBurgrInfo();
   }, []);
 

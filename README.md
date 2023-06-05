@@ -5,14 +5,13 @@
 ## Этот проект был запущен с помощью приложения Create React и работает с компонентами Яндекс.Практикума.
 Это интерфейсная часть сайта Stellar Burger, где клиент может заказать бургер на заказ в кафе Stellar Burgers.
 
-## Как начать
+## Как начать работать с проектом
 * Клонировать репозиторий – git clone https://github.com/chsergey80/react-stellar-burger.git
-* Установите зависимости – npm i
-* Установите зависимости - npm i react-intersection-observer
-* Установите зависимости - npm i react-redux redux-thunk redux @reduxjs/toolkit react-dnd react-dnd-html5-backend
-* Установите зависимости - npm install uuid
+* Установите зависимости – npm i react-intersection-observer uuid react-redux redux-thunk redux @reduxjs/toolkit react-dnd react-dnd-html5-backend
+* Cборка стабильной версии: npm build
 * Запустите проект – npm start
 * Перейти на http://localhost:3000/
+* Gубликация проекта на GitHub Pages: npm run deploy
 
 ## Набор UI-компонентов для курсового проекта на профессии Reaсt-разработчик 
 * Адрес хранилища (https://yandex-practicum.github.io/react-developer-burger-ui-components/docs/)
@@ -93,3 +92,4 @@
     burger-ingredients.js и services/reducers/burger-ingredients.js.
 * 29 commit / Промежуточный коммит. Рефакторинг кода.
 * 30 commit / Удален из проекта файл itemContext.js.
+* 31 commit / Исправления замечаний по результату код-ревью: в шапке ссылка наплывает на лого при небольшом увеличении, лучше убрать отступы у шапки, так как в дизайне их нет. Исправлена ошибка попадания в массив айдишников запроса на оформление заказа не тех ингредиентов, которые были добавлены в конструктор.

@@ -11,12 +11,13 @@ import { v4 as uuidv4 } from 'uuid';
 import { Element } from './element/element';
 
 function BurgerConstructor() {
-  const { data } = useSelector(store => store.data);
   const buns = useSelector(store => store.ingredients.bun);
   const ingredients = useSelector(store => store.ingredients.ingredients);
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const orderIngridients = React.useMemo(() => data.map((a) => a._id), [data]);
+  const orderIngridients = React.useMemo(() => ingredients.map((a) => a._id).concat(buns&&buns._id), [ingredients, buns]);
+  console.log(orderIngridients);
+  
   const onOpen = () => {setIsModalOpen(true); dispatch(getOrder(orderIngridients))};
   const onClose = () => {setIsModalOpen(false)};
   const totalPrice = React.useMemo(() => {return ingredients.reduce((sum, item) => { return sum + item.price}, buns ? (buns.price*2) : 0)}, [buns, ingredients]);
